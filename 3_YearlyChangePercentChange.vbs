@@ -13,10 +13,10 @@ Sub PercentYearlyChange():
     'Count the number of rows of the 1st Ticker column
     Lastrow_Ticker = Cells(Rows.Count, 1).End(xlUp).row
     
-    'Begin the 1st loop
+    'Begin the outer loop. Here it will loop through the list of unique TickerNames generated in the first module.
     For i = 2 To Lastrow_TickerResults
-        
         TickerName = Cells(i, 9).Value
+        'Begin the inner loop. Here it will retreive the values of opening balance and closing balance. 
         For j = 2 To Lastrow_Ticker
             
             If Cells(j, 1).Value = TickerName Then
@@ -36,6 +36,7 @@ Sub PercentYearlyChange():
             End If
         Next j
 
+        'Print the values
         Cells(i, 10).Value = YearlyChange
         Cells(i, 11).Value = PercentChange
         'Add a row
