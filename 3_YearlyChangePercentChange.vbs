@@ -1,4 +1,4 @@
-Sub PercentYearlyChange():
+Sub YearPercentChange():
     
     'Define variables
     Dim TickerName  As String
@@ -16,7 +16,7 @@ Sub PercentYearlyChange():
     'Begin the outer loop. Here it will loop through the list of unique TickerNames generated in the first module.
     For i = 2 To Lastrow_TickerResults
         TickerName = Cells(i, 9).Value
-        'Begin the inner loop. Here it will retreive the values of opening balance and closing balance. 
+        'Begin the inner loop. Here it will retreive the values of opening balance and closing balance.
         For j = 2 To Lastrow_Ticker
             
             If Cells(j, 1).Value = TickerName Then
@@ -33,18 +33,27 @@ Sub PercentYearlyChange():
                     PercentChange = (YearlyChange / OpeningBalance) * 100
                     
                 End If
+                
             End If
         Next j
-
+        
         'Print the values
         Cells(i, 10).Value = YearlyChange
         Cells(i, 11).Value = PercentChange
+        
+        'Colour the cells
+        If Cells(i, 10).Value > 0 Then
+            Cells(i, 10).Interior.ColorIndex = 4
+        Else
+            Cells(i, 10).Interior.ColorIndex = 3
+        End If
+        
         'Add a row
         Results_row = Results_row + 1
         'Reset the amounts to 0
         OpeningBalance = 0
         ClosingBalance = 0
         PercentChange = 0
-        YearlyChange = 0        
+        YearlyChange = 0
     Next i
 End Sub
